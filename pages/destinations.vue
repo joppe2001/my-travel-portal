@@ -17,11 +17,9 @@
 <script setup>
 
 const userDestinations = [
-  // This data will be fetched from Firebase
-  // Example static data:
   { id: 1, name: 'Praia', imageUrl: '/images/praia.webp', description: 'Experience the vibrant culture of Praia.' },
   { id: 2, name: 'Sal', imageUrl: '/images/sal.webp', description: 'Relax on the beautiful beaches of Sal.' },
-  { id: 3, name: 'Boa Vista', imageUrl: '/images/boa-vista.jpg', description: 'Explore the stunning landscapes of Boa Vista.' }
+  { id: 3, name: 'BoaVista', imageUrl: '/images/boa-vista.jpg', description: 'Explore the stunning landscapes of Boa Vista.' }
 ];
 
 </script>

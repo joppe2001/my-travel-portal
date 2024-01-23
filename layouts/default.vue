@@ -1,24 +1,15 @@
 <template>
-  <div >
+  <div style="height: 100vh;">
       <slot />
   </div>
 </template>
 
-<!-- <style>
-* {
-  font-family: 'Roboto', sans-serif;
-  letter-spacing: 0.05rem;
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-size: 20px;
-  font-weight: 600;
-}
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;500&display=swap');
 
-h1, h2 {
-  font-family: 'Roboto', sans-serif;
-  font-weight: 600;
-  font-size: 2rem;
-  margin-bottom: 1rem;
-}  
-</style> -->
+/* apply font and other general styles */
+* {
+  font-family: 'Quicksand', sans-serif;
+  box-sizing: border-box;
+}
+</style>

@@ -1,20 +1,40 @@
 <template>
-  <div class="login-page">
-    <div class="login-container">
-      <DynamicForm
-        :fields="signupFields"
-        submitLabel="Signup"
-        :onSubmit="handleSignup"
-      />
-    </div>
-  </div>
+	<div class="login-page">
+		<div class="login-container">
+			<DynamicForm
+				v-if="login"
+				:fields="signupFields"
+				submitLabel="Signup"
+				:onSubmit="handleSignup"
+			/>
+			<DynamicForm
+				v-else
+				:fields="loginFields"
+				submitLabel="Login"
+				:onSubmit="handleLogin"
+			/>
+		</div>
+		<!-- button to swap between login and signup -->
+		<div class="text-center mt-4">
+			<button class="text-blue-500 hover:text-blue-700" @click="login = !login">
+				{{
+					login
+						? "Already have an account? Login"
+						: "Don't have an account? Signup"
+				}}
+			</button>
+		</div>
+	</div>
 </template>
 
 <script setup>
 	import DynamicForm from "@/components/atoms/DynamicForm.vue";
+	import useUserStore from "../stores/user";
 
-	const { $registerUser } = useNuxtApp();
-  const router = useRouter();
+	const { $registerUser, $loginUser } = useNuxtApp();
+	const router = useRouter();
+
+	const login = ref(true); // Whether to show the login or signup form
 
 	const signupFields = [
 		{
@@ -37,6 +57,21 @@
 		},
 	];
 
+	const loginFields = [
+		{
+			name: "email",
+			label: "Email",
+			type: "email",
+			placeholder: "Enter your email",
+		},
+		{
+			name: "password",
+			label: "Password",
+			type: "password",
+			placeholder: "Enter your password",
+		},
+	];
+
 	const handleSignup = async (formValues) => {
 		if (formValues.password !== formValues.confirmPassword) {
 			alert("Passwords do not match");
@@ -44,15 +79,50 @@
 		}
 
 		try {
-			await $registerUser(formValues.email, formValues.password);
-			alert("Signup successful");
-      router.push("/");
+			const userCredentials = await $registerUser(
+				formValues.email,
+				formValues.password
+			);
+			if (userCredentials && userCredentials.uid) {
+				// Set user data in the store
+				const userStore = useUserStore();
+				userStore.setUser(userCredentials.uid, formValues.email);
 
+				alert("Signup successful");
+				router.push("/");
+			}
 		} catch (error) {
 			if (error.code === "auth/email-already-in-use") {
 				alert("This email is already in use. Please use a different email.");
 			} else {
 				alert(error.message);
+			}
+		}
+	};
+
+	const handleLogin = async (formValues) => {
+		try {
+			const userCredentials = await $loginUser(
+				formValues.email,
+				formValues.password
+			);
+			console.log(userCredentials);
+			if (userCredentials && userCredentials.uid) {
+				// Set user data in the store
+				const userStore = useUserStore();
+				userStore.setUser(userCredentials.uid, formValues.email);
+
+				alert("Login successful");
+				router.push("/");
+			}
+		} catch (error) {
+			if (error.code === "auth/user-not-found") {
+				alert("This email is not registered. Please signup first.");
+			} else if (error.code === "auth/wrong-password") {
+				alert("The password is incorrect. Please try again.");
+			} else {
+				alert(error.message);
+				console.log("not working");
 			}
 		}
 	};
@@ -63,8 +133,9 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		height: 100vh;
-		background-color: #f5f5f5; // Soft background color for a gentle feel
+		flex-direction: column;
+		height: 100%; /* Use min-height instead of height */
+		background-color: #f5f5f5;
 
 		.login-container {
 			padding: 40px;
@@ -79,9 +150,6 @@
 				color: #333;
 				margin-bottom: 20px; // Space above the form
 			}
-
-			// Additional styling can be placed here for other elements you might have
-			// For example, links, buttons, or informational text outside the form
 		}
 	}
 </style>

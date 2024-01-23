@@ -24,7 +24,7 @@
 </template>
 
 <script setup>
-import { defineProps, reactive, onMounted } from 'vue';
+import { reactive, onMounted } from 'vue';
 
 const { fields, submitLabel, onSubmit } = defineProps({
   fields: {
