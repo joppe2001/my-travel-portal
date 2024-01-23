@@ -4,7 +4,7 @@ export default defineNuxtConfig({
   modules: [
     '@nuxtjs/tailwindcss',
     '@pinia/nuxt',
-    '@vueuse/nuxt'
+    '@vueuse/nuxt',
   ],
   css: ['~/assets/css/tailwind.css'],
   plugins: ['~/plugins/firebase.plugins.ts'],
