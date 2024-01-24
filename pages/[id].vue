@@ -43,7 +43,6 @@ watchEffect(async () => {
   }
 });
 
-// Optional: Watch for changes in userTravelDetails
 watch(userTravelDetails, (newValue) => {
   console.log("Updated travel details:", newValue);
 });
@@ -51,46 +50,46 @@ watch(userTravelDetails, (newValue) => {
 
 <style scoped lang="scss">
 .travel-portal {
-  background-color: #f7f7f7; /* Light gray background */
+  background-color: #f7f7f7; 
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .city-name {
-  color: #3498db; /* Vibrant blue for city name */
+  color: #3498db; 
   font-size: 28px;
   margin-bottom: 10px;
 }
 
 .country-description {
-  color: #555; /* Dark gray for country description */
+  color: #555; 
   font-size: 18px;
   line-height: 1.6;
 }
 
 .day-details {
-  background-color: #fff; /* White background for day details */
+  background-color: #fff; 
   padding: 20px;
   border-radius: 10px;
   margin-top: 20px;
 }
 
 .day-title {
-  color: #e74c3c; /* Bold red for day title */
+  color: #e74c3c;
   font-size: 24px;
   margin-bottom: 15px;
 }
 
 .daily-schedule {
   .schedule-item {
-    color: #444; /* Dark gray for schedule details */
+    color: #444;
     font-size: 18px;
     line-height: 1.6;
     margin-bottom: 10px;
 
     strong {
-      color: #f39c12; /* Bright orange for strong elements */
+      color: #f39c12;
     }
   }
 }

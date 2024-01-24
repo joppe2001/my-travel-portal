@@ -3,7 +3,6 @@ import {
 	getAuth,
 	onAuthStateChanged,
 	createUserWithEmailAndPassword,
-	updateProfile,
 	signInWithEmailAndPassword,
 } from "firebase/auth";
 import type { Auth } from "firebase/auth";

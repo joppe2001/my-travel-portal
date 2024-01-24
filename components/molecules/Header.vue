@@ -2,6 +2,7 @@
   <header class="bg-white shadow-md">
     <div class="container mx-auto px-4 py-2 md:py-4 flex justify-between items-center">
       <router-link to="/" class="text-2xl font-bold text-blue-500">Home</router-link>
+      <router-link to="/travelBuilder" class="text-2xl font-bold text-blue-500">build your trip</router-link>
       <button
         class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition-colors"
         @click="signOut"
